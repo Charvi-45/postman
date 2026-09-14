@@ -2,7 +2,7 @@
 
 import torch
 import random
-device = torch.device("cuda")
+
 def bigbird(q, k, v, w, r, g, device=None):
 
     if device is None:
@@ -50,5 +50,6 @@ def bigbird(q, k, v, w, r, g, device=None):
 
     return mask
 
-
+import shutil
+shutil.move("/content/src/bigbirdmasks.py", "/content/postman/")
 
