@@ -27,9 +27,9 @@ v = torch.randn(1, 1, 8, 4)
 
 device = torch.device("cuda")
 mask = mask(q)
-sparse_mask=sliding_win(8,4,"cuda")
+sparse_mask=sliding_win(8,4,"cpu")
 big_bird= bigbird(q,k,v,
-    2,1, 3,"cuda")
+    2,1, 3,"cpu")
 
 
 
