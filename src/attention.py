@@ -1,5 +1,5 @@
 import math
-from utils.attention_utils import matmul, transpose, softmax
+
 import torch
 device="cuda"
 def dense(
@@ -20,4 +20,3 @@ def dense(
 
    return torch.matmul(weights, v)
 
-   
