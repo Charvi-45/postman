@@ -8,3 +8,5 @@ def sliding_win(seq_len:int,w:int,device=device):
     for j in range(seq_len):
         if max(0, i-w+1) <= j <= i:
             mask[i, j] = 1
+  %%writefile src/masks.py
+  return mask
