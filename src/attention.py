@@ -1,6 +1,6 @@
 from src.slidingmasks import  sliding_win
 from src.bigbirdmasks import  bigbird
-from src.attention  import dense
+
 import math
 
 import torch
