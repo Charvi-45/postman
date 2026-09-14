@@ -29,7 +29,7 @@ device = torch.device("cuda")
 mask = mask(q)
 sparse_mask=sliding_win(8,4,"cuda")
 big_bird= bigbird(q,k,v,
-    8,2,1, 3,"cuda")
+    2,1, 3,"cuda")
 
 
 
