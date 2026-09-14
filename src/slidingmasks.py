@@ -1,4 +1,4 @@
-
+device = torch.device("cuda")
 import torch
 def sliding_win(seq_len:int,w:int,device=device):
 
