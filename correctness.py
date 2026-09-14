@@ -26,7 +26,7 @@ k = torch.randn(1, 1, 8, 4)
 v = torch.randn(1, 1, 8, 4)
 
 device = torch.device("cuda")
-mask = mask(8)
+mask = mask(q)
 sparse_mask=sliding_win(8,4,"cuda")
 big_bird= bigbird(
     8,
