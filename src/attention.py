@@ -1,3 +1,6 @@
+from src.slidingmasks import  sliding_win
+from src.bigbirdmasks import  bigbird
+from src.attention  import dense
 import math
 
 import torch
@@ -14,7 +17,7 @@ def dense(
    d = q.shape[-1]
    scale = 1.0 / math.sqrt(d)
    scores = torch.matmul(q, k.transpose(-2, -1)) * scale
-
+   mask = mask.bool()
    scores = scores.masked_fill(~mask, float("-inf"))
    weights = torch.softmax(scores, dim=-1)
 
