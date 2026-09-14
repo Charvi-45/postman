@@ -8,40 +8,25 @@ def dense(
     v: torch.Tensor,
     mask: torch.Tensor | None = None,
 ) -> torch.Tensor:
-
-    # 1. Dimension of each key/query vector
     d = q.shape[-1]
-
-    # 2. Scaling factor
     scale = 1.0 / math.sqrt(d)
-
-    # 3. Calculate attention scores
     scores = torch.matmul(
         q,
         k.transpose(-2, -1)
     ) * scale
-
-    # 4. Apply mask
     if mask is not None:
 
         mask = mask.bool()
-
-        # Check which rows have at least one allowed position
         valid = mask.any(dim=-1, keepdim=True)
-
-        # Disallowed positions become -infinity
         scores = scores.masked_fill(
             ~mask,
             float("-inf")
-        )
-
-        # 5. Softmax
-        weights = torch.softmax(
+        ) 
+    weights = torch.softmax(
             scores,
             dim=-1
         )
-
-        # 6. Fix fully-masked rows
+s
         weights = torch.where(
             valid,
             weights,
@@ -49,12 +34,42 @@ def dense(
         )
 
     else:
-
-        # No mask → normal softmax
+ 
         weights = torch.softmax(
             scores,
             dim=-1
         )
 
-    # 7. Weighted sum of values
     return torch.matmul(weights, v)
+def sparse(q, k, v, mask):
+
+    mask = mask.bool()
+
+    seq_len = q.shape[-2]
+    d = q.shape[-1]
+
+    scale = 1.0 / math.sqrt(d)
+
+    outputs = []
+
+    for i in range(seq_len):
+        allowed = mask[i]
+
+        q_i = q[..., i, :]
+
+        k_i = k[..., allowed, :]
+        v_i = v[..., allowed, :]
+
+        scores_i = torch.matmul(
+            q_i.unsqueeze(-2),
+            k_i.transpose(-2, -1)
+        ) * scale
+
+        weights_i = torch.softmax(scores_i, dim=-1)
+
+        output_i = torch.matmul(weights_i, v_i)
+
+        outputs.append(output_i)
+
+    return torch.cat(outputs, dim=-2)
+   
