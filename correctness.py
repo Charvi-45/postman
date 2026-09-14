@@ -33,7 +33,10 @@ big_bird= bigbird(q,k,v,
     2,1, 3,"cpu")
 print("BigBird type:", type(big_bird))
 
+test_sliding = sliding_win(8, 4, "cpu")
 
+print(test_sliding)
+print(type(test_sliding))
 
 dense_out = dense(
         q, k, v, mask
