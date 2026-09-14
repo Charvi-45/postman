@@ -5,8 +5,8 @@ from src.bigbirdmasks import  bigbird
 from src.attention  import dense
 
 def assert_matches_dense_where_masks_agree(dense_mask, sparse_mask, q, k, v):
-    dense_out = dense_attention(q, k, v, dense_mask)
-    sparse_out = dense_attention(q, k, v, sparse_mask)
+    dense_out = dense(q, k, v, dense_mask)
+    sparse_out = dense(q, k, v, sparse_mask)
 
     checked = 0
 
