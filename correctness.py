@@ -43,7 +43,7 @@ sparse_out = dense(
     )
 assert_matches_dense_where_masks_agree(
     mask,
-    bigbird_mask,
+    big_bird,
     q,
     k,
     v
