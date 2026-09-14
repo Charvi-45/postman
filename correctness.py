@@ -1,4 +1,5 @@
-from src.masks import causal_mask
+import torch
+from src.masks import mask
 from src.slidingmasks import  sliding_win
 from src.bigbirdmasks import  bigbird
 from src.attention  import dense
@@ -19,19 +20,42 @@ def assert_matches_dense_where_masks_agree(dense_mask, sparse_mask, q, k, v):
             checked += 1
 
     assert checked > 0
+    print("Correctness check: PASS")
 q = torch.randn(1, 1, 8, 4)
 k = torch.randn(1, 1, 8, 4)
 v = torch.randn(1, 1, 8, 4)
 
+device = torch.device("cuda")
 mask = mask(8)
 sparse_mask=sliding_win(8,4,"cuda")
+big_bird= bigbird(
+    8,
+    2,
+    1,
+   3
+).to(device)
 
-print(out.shape)
 
-dense_out = dense_attention(
+
+dense_out = dense(
         q, k, v, mask
     )
 
-sparse_out = dense_attention(
+sparse_out = dense(
         q, k, v, sparse_mask
     )
+assert_matches_dense_where_masks_agree(
+    mask,
+    bigbird_mask,
+    q,
+    k,
+    v
+)
+
+assert_matches_dense_where_masks_agree(
+    mask,
+    sparse_mask,
+    q,
+    k,
+    v
+)
