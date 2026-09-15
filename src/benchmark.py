@@ -13,6 +13,14 @@ from torch.utils.benchmark import Timer
 CONFIGS = ["dense", "sliding", "bigbird"]
 device = "cuda"
 sl=[512, 1024, 2048, 4096, 8192]
+print("Hardware:")
+print("Device:", device)
+
+if torch.cuda.is_available():
+    print("GPU:", torch.cuda.get_device_name(0))
+    print("CUDA:", torch.version.cuda)
+else:
+    print("CPU:", torch.get_num_threads())
 def make_qkv(seq_len):
     shape = (1, 1, seq_len, 64)  
     q = torch.randn(shape, device=device)
