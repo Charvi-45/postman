@@ -37,12 +37,12 @@ def build_config(name, seq_len):
 
     return run_once, [q, k, v, m]
 @torch.no_grad()
-def benchmark_fwd(name, seq_len, n_warmup=3, n_iters=10):
+def benchmark_fwd(name, sl, n_warmup=3, n_iters=10):
     # Running forward pass only (no gradients)
     # sparse() is slower here because it loops per token in Python,
     # so keeping iterations low. Very large seq_len might still be slow.
 
-    run_once, tensors = build_config(name, seq_len)
+    run_once, tensors = build_config(name, sl)
 
     # Warmup runs (GPU needs a few runs before timing becomes stable)
     for _ in range(n_warmup):
@@ -71,7 +71,7 @@ def benchmark_fwd(name, seq_len, n_warmup=3, n_iters=10):
 
     return {
         "name": name,
-        "seq_len": seq_len,
+        "seq_len": sl,
         "fwd_ms": statistics.median(fwd_ms),
         "peak_mem_mb": peak_mem_mb
     }
@@ -81,7 +81,7 @@ print(f"{'config':<10} {'seq_len':>8} {'median fwd ms':>15} {'peak mem MB':>13}"
 
 results = []
 
-for seq_len in SEQ_LENS:
+for seq_len in sl:
     for cfg in CONFIGS:
         r = benchmark_fwd(cfg, seq_len)
         results.append(r)
