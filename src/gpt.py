@@ -6,7 +6,7 @@ from attention import dense
 from masks import mask
 from slidingmasks import sliding_win
 from bigbirdmasks import bigbird
-
+import matplotlib.pyplot as plt
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Device:", device)
 
