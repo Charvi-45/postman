@@ -10,6 +10,7 @@ from slidingmasks import sliding_win
 from bigbirdmasks import bigbird
 from torch.utils.benchmark import Timer
 CONFIGS = ["dense", "sliding", "bigbird"]
+device = "cuda"
 sl=[512, 1024, 2048, 4096, 8192]
 def make_qkv(seq_len):
     shape = (1, 1, seq_len, 64)  
