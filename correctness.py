@@ -23,17 +23,17 @@ def assert_matches_dense_where_masks_agree(dense_mask, sparse_mask, q, k, v):
     print("Correctness check: PASS")
 
 
-device = torch.device("cpu")
+device = torch.device("cuda")
 q = torch.randn(1, 1, 8, 4, device=device)
 k = torch.randn(1, 1, 8, 4, device=device)
 v = torch.randn(1, 1, 8, 4, device=device)
 mask = mask(q)
-sparse_mask=sliding_win(8,4,"cpu")
+sparse_mask=sliding_win(8,4,"cuda")
 big_bird= bigbird(q,k,v,
-    2,1, 3,"cpu")
+    2,1, 3,"cuda")
 print("BigBird type:", type(big_bird))
 
-test_sliding = sliding_win(8, 4, "cpu")
+test_sliding = sliding_win(8, 4, "cuda")
 
 print(test_sliding)
 print(type(test_sliding))
