@@ -269,3 +269,22 @@ for name in results:
         name,
         round(results[name]["val"][-1], 4)
     )
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10,6))
+
+for name in ["dense", "sliding", "bigbird"]:
+    plt.plot(
+        results[name]["steps"],
+        results[name]["val"],
+        marker="o",
+        label=name
+    )
+
+plt.xlabel("Training Step")
+plt.ylabel("Validation Loss")
+plt.title("Quality Loss Curves")
+plt.legend()
+plt.grid(True)
+plt.savefig("quality_loss_curves.png", dpi=300, bbox_inches="tight")
+plt.show()
