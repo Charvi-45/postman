@@ -14,7 +14,7 @@ def check_empty_attention():
     v = torch.randn(1, 1, n, 8)
 
     # No token allowed for first query
-    attn_mask = sliding_win(n, 0, "cpu")
+    attn_mask = sliding_win(n, 0, "cuda")
 
     result = dense(q, k, v, attn_mask)
 
