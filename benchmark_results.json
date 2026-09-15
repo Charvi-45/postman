@@ -1,0 +1,92 @@
+[
+  {
+    "name": "dense",
+    "seq_len": 512,
+    "fwd_ms": 0.2922240048646927,
+    "peak_mem_mb": 13.75048828125
+  },
+  {
+    "name": "sliding",
+    "seq_len": 512,
+    "fwd_ms": 154.36328125,
+    "peak_mem_mb": 10.1279296875
+  },
+  {
+    "name": "bigbird",
+    "seq_len": 512,
+    "fwd_ms": 138.62337493896484,
+    "peak_mem_mb": 9.1376953125
+  },
+  {
+    "name": "dense",
+    "seq_len": 1024,
+    "fwd_ms": 0.5312319993972778,
+    "peak_mem_mb": 29.8759765625
+  },
+  {
+    "name": "sliding",
+    "seq_len": 1024,
+    "fwd_ms": 260.71221923828125,
+    "peak_mem_mb": 14.6279296875
+  },
+  {
+    "name": "bigbird",
+    "seq_len": 1024,
+    "fwd_ms": 258.63880920410156,
+    "peak_mem_mb": 10.6376953125
+  },
+  {
+    "name": "dense",
+    "seq_len": 2048,
+    "fwd_ms": 1.7376800179481506,
+    "peak_mem_mb": 93.626953125
+  },
+  {
+    "name": "sliding",
+    "seq_len": 2048,
+    "fwd_ms": 532.8482971191406,
+    "peak_mem_mb": 31.1279296875
+  },
+  {
+    "name": "bigbird",
+    "seq_len": 2048,
+    "fwd_ms": 534.4560241699219,
+    "peak_mem_mb": 15.1376953125
+  },
+  {
+    "name": "dense",
+    "seq_len": 4096,
+    "fwd_ms": 6.790656089782715,
+    "peak_mem_mb": 347.12890625
+  },
+  {
+    "name": "sliding",
+    "seq_len": 4096,
+    "fwd_ms": 1032.7304077148438,
+    "peak_mem_mb": 94.1279296875
+  },
+  {
+    "name": "bigbird",
+    "seq_len": 4096,
+    "fwd_ms": 1274.5361938476562,
+    "peak_mem_mb": 30.1376953125
+  },
+  {
+    "name": "dense",
+    "seq_len": 8192,
+    "fwd_ms": 21.229616165161133,
+    "peak_mem_mb": 1358.1328125
+  },
+  {
+    "name": "sliding",
+    "seq_len": 8192,
+    "fwd_ms": 2200.7724609375,
+    "peak_mem_mb": 340.1279296875
+  },
+  {
+    "name": "bigbird",
+    "seq_len": 8192,
+    "fwd_ms": 2379.492431640625,
+    "peak_mem_mb": 84.1376953125
+  }
+]
