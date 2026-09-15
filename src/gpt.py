@@ -183,20 +183,18 @@ def estimate_loss(model):
 
     model.train()
     return sum(losses) / len(losses)
-
 def train_model(attention_type):
     print("\nTraining:", attention_type)
 
     model = GPT(attention_type).to(device)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=learning_rate
-    )
+    steps = []
+    train_losses = []
+    val_losses = []
 
     for step in range(max_iters):
         x, y = get_batch("train")
-
         _, loss = model(x, y)
 
         optimizer.zero_grad(set_to_none=True)
@@ -205,25 +203,69 @@ def train_model(attention_type):
 
         if step % eval_interval == 0:
             val_loss = estimate_loss(model)
+
+            steps.append(step)
+            train_losses.append(loss.item())
+            val_losses.append(val_loss)
+
             print(
-                "step",
                 step,
-                "train loss",
+                "train:",
                 round(loss.item(), 4),
-                "val loss",
+                "val:",
                 round(val_loss, 4)
             )
 
-    final_loss = estimate_loss(model)
+    return model, steps, train_losses, val_losses
 
-    return final_loss
 
 results = {}
 
 for attention_type in ["dense", "sliding", "bigbird"]:
-    results[attention_type] = train_model(attention_type)
+    model, steps, train_losses, val_losses = train_model(attention_type)
+
+    results[attention_type] = {
+        "steps": steps,
+        "train": train_losses,
+        "val": val_losses
+    }
+
+plt.figure(figsize=(8, 5))
+
+for name in results:
+    plt.plot(
+        results[name]["steps"],
+        results[name]["train"],
+        label=name
+    )
+
+plt.xlabel("Training step")
+plt.ylabel("Training loss")
+plt.title("Training Loss")
+plt.legend()
+plt.grid()
+plt.show()
+
+plt.figure(figsize=(8, 5))
+
+for name in results:
+    plt.plot(
+        results[name]["steps"],
+        results[name]["val"],
+        label=name
+    )
+
+plt.xlabel("Training step")
+plt.ylabel("Validation loss")
+plt.title("Validation Loss")
+plt.legend()
+plt.grid()
+plt.show()
 
 print("\nFinal validation losses:")
 
-for name, loss in results.items():
-    print(name, round(loss, 4))
+for name in results:
+    print(
+        name,
+        round(results[name]["val"][-1], 4)
+    )
