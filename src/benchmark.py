@@ -5,6 +5,7 @@ import math
 import statistics
 import matplotlib.pyplot as plt
 from attention import dense
+from attention import sparse
 from masks import mask
 from slidingmasks import sliding_win
 from bigbirdmasks import bigbird
