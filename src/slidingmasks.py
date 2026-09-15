@@ -1,6 +1,6 @@
 
 import torch
-device = torch.device("cpu")
+device = torch.device("cuda")
 def sliding_win(seq_len:int,w:int,device=device):
 
   mask = torch.zeros(seq_len,seq_len)
@@ -8,5 +8,5 @@ def sliding_win(seq_len:int,w:int,device=device):
     for j in range(seq_len):
         if max(0, i-w+1) <= j <= i:
             mask[i, j] = 1
-  
+
   return mask
