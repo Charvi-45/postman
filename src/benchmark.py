@@ -14,6 +14,7 @@ device = "cuda"
 sl=[512, 1024, 2048, 4096, 8192]
 def make_qkv(seq_len):
     shape = (1, 1, seq_len, 64)  
+    q = torch.randn(shape, device=device)
     k = torch.randn(shape, device=device)
     v = torch.randn(shape, device=device)
     return q, k, v
