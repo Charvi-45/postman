@@ -4,10 +4,10 @@ import json
 import math
 import statistics
 import matplotlib.pyplot as plt
-from src.attention import dense
-from src.masks import mask
-from src.slidingmasks import sliding_win
-from src.bigbirdmasks import bigbird
+from attention import dense
+from masks import mask
+from slidingmasks import sliding_win
+from bigbirdmasks import bigbird
 from torch.utils.benchmark import Timer
 torch.manual_seed(42+seq_len)
 sl=[512, 1024, 2048, 4096, 8192]
