@@ -13,15 +13,14 @@ def check_empty_attention():
     k = torch.randn(1, 1, n, 8)
     v = torch.randn(1, 1, n, 8)
 
-    # No token is allowed for the first query
+    # No token allowed for first query
     attn_mask = sliding_win(n, 0, "cpu")
 
     result = dense(q, k, v, attn_mask)
 
-    # A completely masked query should not produce NaN
+    # completely masked query should not produce NaN
     assert torch.isnan(result).any().item() == False
 
-    # Its output should be all zeros
     first = result[..., 0, :]
     assert torch.all(first == 0)
 
@@ -37,22 +36,18 @@ def check_regular_attention():
     v = torch.randn(1, 1, n, 8)
 
     normal_mask = mask(q)
-    normal_result = dense(q, k, v, normal_mask)
-
-    # Remove every allowed connection for query 0
+    normal_result = dense(q,k,v,normal_mask)
     modified_mask = normal_mask.clone()
     modified_mask[0] = False
 
     modified_result = dense(q, k, v, modified_mask)
 
-    # Queries 1 onward should behave exactly as before
     assert torch.allclose(
         modified_result[..., 1:, :],
         normal_result[..., 1:, :],
         atol=1e-6
     )
 
-    # Query 0 has no valid keys, so its output should be zero
     assert torch.all(
         modified_result[..., 0, :] == 0
     )
